@@ -2,4 +2,4 @@
 
 # Image-Object-Detection-Ai
 
-Using React,Tensorflow, and cocoSsd, I have created an application that takes in an image and it identifies certain objects in it. It will outline the object in a box, identify it, and show percentage similarity. This AI is programmed to detect up to 80 different objects currently. If you want to give it a try there are some test images in the src\assets\ folder. 
+Using React,Tensorflow, and cocoSsd, I have created an application that takes an image and it identifies certain objects in it. It will outline the object in a box, identify it, and show percentage similarity. This AI is programmed to detect up to 80 different objects. If you want to give it a try, there are some test images in the src\assets\ folder. 
