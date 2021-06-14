@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-
 import "@tensorflow/tfjs-backend-cpu";
 //import "@tensorflow/tfjs-backend-webgl";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
@@ -41,7 +40,6 @@ const SelectButton = styled.button`
   margin-top: 2em;
   cursor: pointer;
   transition: all 260ms ease-in-out;
-
   &:hover {
     background-color: transparent;
     border: 2px solid #fff;
@@ -51,16 +49,13 @@ const SelectButton = styled.button`
 
 const TargetBox = styled.div`
   position: absolute;
-
   left: ${({ x }) => x + "px"};
   top: ${({ y }) => y + "px"};
   width: ${({ width }) => width + "px"};
   height: ${({ height }) => height + "px"};
-
   border: 4px solid #1ac71a;
   background-color: transparent;
   z-index: 20;
-
   &::before {
     content: "${({ classType, score }) => `${classType} ${score.toFixed(1)}%`}";
     color: #1ac71a;
@@ -78,13 +73,10 @@ export function ObjectDetector(props) {
   const [imgData, setImgData] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [isLoading, setLoading] = useState(false);
-
   const isEmptyPredictions = !predictions || predictions.length === 0;
-
   const openFilePicker = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
-
   const normalizePredictions = (predictions, imgSize) => {
     if (!predictions || !imgSize || !imageRef) return predictions || [];
     return predictions.map((prediction) => {
@@ -93,19 +85,16 @@ export function ObjectDetector(props) {
       const oldY = bbox[1];
       const oldWidth = bbox[2];
       const oldHeight = bbox[3];
-
       const imgWidth = imageRef.current.width;
       const imgHeight = imageRef.current.height;
-
       const x = (oldX * imgWidth) / imgSize.width;
       const y = (oldY * imgHeight) / imgSize.height;
       const width = (oldWidth * imgWidth) / imgSize.width;
       const height = (oldHeight * imgHeight) / imgSize.height;
-
       return { ...prediction, bbox: [x, y, width, height] };
     });
   };
-
+  
   const detectObjectsOnImage = async (imageElement, imgSize) => {
     const model = await cocoSsd.load({});
     const predictions = await model.detect(imageElement, 6);
@@ -126,14 +115,11 @@ export function ObjectDetector(props) {
   const onSelectImage = async (e) => {
     setPredictions([]);
     setLoading(true);
-
     const file = e.target.files[0];
     const imgData = await readImage(file);
     setImgData(imgData);
-
     const imageElement = document.createElement("img");
     imageElement.src = imgData;
-
     imageElement.onload = async () => {
       const imgSize = {
         width: imageElement.width,
